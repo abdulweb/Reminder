@@ -39,18 +39,36 @@
                                 <tr>
                                     <th>Sn</th>
                                     <th>Immunization Code</th>
+                                    <th>First Name</th>
                                     <th>Last Name</th>
-                                    <th>Other Name</th>
                                     <th>Phone Number</th>
                                     <th>Created Date</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                
+                                    <?php
+                                        $results = $object->getCaregiverAndChildren();
+                                        if (!empty($results)) {
+                                            foreach ($results as $key => $result) {    
+                                        ?>
+                                            
                                             <tr>
-                                               
+                                               <td><?=++$key?></td>
+                                               <td><?=$object->uniqueCodeCaregiver($result['first_name'].$result['other_name'],$result['id'])?></td>
+                                               <td><?=$result['first_name']?></td>
+                                               <td><?=$result['other_name']?></td>
+                                               <td><?=$result['phone_no']?></td>
+                                               <td><?=$result['created_at']?></td>
+                                               <td>
+                                                   <a href="">View</a>
+                                                   <a href="">Delete</a>
+                                               </td>
                                             </tr>
+                                    <?php
+                                        }
+                                    }
+                                    ?>
                             </tbody>
                         </table>
                     </div>

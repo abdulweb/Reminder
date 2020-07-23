@@ -149,6 +149,7 @@ class user extends dbh
 			$stmtx = "DELETE FROM users where id = '$user_id'";
 			$resultx = $this->connect()->query($stmtx);
 			if ($resultx) {
+
 				echo "success";
 			}
 			else{
@@ -158,7 +159,7 @@ class user extends dbh
 		else{
 			echo '<script>alert("Please Try Agin. Error Occured")</script>';
 		}
-		exit();
+		
 	}
 	// End of Health worker
 	
@@ -250,13 +251,24 @@ class user extends dbh
 			return $serialNo;
 		}
 	}
-
-	// Update health worker
-	public function updateHealthWorker($name,$hopital,$phone,$username,$id,$userID)
-	{
-
+	// caregiver unique number
+	public function uniqueCodeCaregiver($name,$serialNo){
+		return 'CA/'.strtoupper(substr($name,0,2)).'/'.$this->serialNoLength($serialNo);
 	}
 
+	// Update health worker
+	public function updateHealthWorker($update_userID,$hwID, $hospital_name,$phone,$full_name)
+	{
+		$stmt = "UPDATE healthworker set full_name = '$full_name',hospital_id = '$hospital_name', phone_no = '$phone' where id = '$hwID'";
+	 $result = $this->connect()->query($stmt);
+	 if($result)
+	 {
+	 	echo '<div class ="alert bg-teal alert-dismissible"> <strong> Health Worker Record Updated Successfully  </strong> </div>';	 }
+	 else{
+	 	echo '<div class ="alert bg-danger alert-dismissible"> <strong> Please Try Agin. Error Occured!!!  </strong> </div>';
+	 }
+	}
+// End of update health worker
 	public function getAllHospital()
 	{
 		$stmt = "SELECT * FROM health_facility";
@@ -495,7 +507,7 @@ class user extends dbh
 							if ($occ) 
 							{
 								// vacinntion insertion
-								$select = $this->connect()->query("SELECT * FROM children ORDER BY id LIMIT 1")->fetch_assoc();
+								$select = $this->connect()->query("SELECT * FROM children ORDER BY id DESC LIMIT 1")->fetch_assoc();
 								$gotID = $select['id'];
 									if (empty($vaccine) or count($vaccine) < 1) {
 										echo "not vaccine added";
@@ -506,7 +518,7 @@ class user extends dbh
 											echo '<div class ="alert bg-teal alert-dismissible"> <strong> New Caregiver and child  Added Successfully  </strong> </div>';
 										}
 										else{
-											echo '<div class ="alert alert-danger alert-dismissible"> <strong> Error Occured !!! Please Try Again at added child </strong> </div>';
+											echo '<div class ="alert alert-danger alert-dismissible"> <strong> Error Occured while trying to add children !!! Please Try Again </strong> </div>';
 										}
 									}
 								// 
@@ -529,6 +541,22 @@ class user extends dbh
 		}
 		else{
 			echo  '<div class ="alert bg-danger alert-dismissible"> <strong> All field are required  </strong> </div>';
+		}
+	}
+
+	function getCaregiverAndChildren()
+	{
+		$stmt = "SELECT * FROM caregiver ORDER By id DESC";
+		$result = $this->connect()->query($stmt);
+		$numberrows = $result->num_rows;
+		if ($numberrows >0) {
+			while ($rows= $result->fetch_assoc()) {
+				$row_data [] = $rows;
+		}
+		 return $row_data;
+		}
+		else{
+			return '';
 		}
 	}
 
@@ -576,9 +604,19 @@ class user extends dbh
 	function child_vacinnation($vaccine,$childID)
 	{
 		 $created_at = date('Y-m-d');
-		foreach ($vaccine as $storeVaccine) {
-	        $this->connect()->query("INSERT INTO child_vaccine(child_id,vaccine_id,created_at)Values('$childID','$storeVaccine','$created_at')");
-	    }
+		 if (!empty($vaccine)) {
+		 	foreach ($vaccine as $storeVaccine)
+		 	 {
+		        $this->connect()->query("INSERT INTO child_vaccine(child_id,vaccine_id,created_at)Values('$childID','$storeVaccine','$created_at')");
+		    }
+		    return true;
+		 }
+		 else{
+		 	return false;
+		 }
+		 	
+		
+
 	}
 
 /* ===================================================================*/

@@ -137,10 +137,10 @@
                                                 foreach ($results as $value) {
                                                     echo '<input type="checkbox" 
                                                     name="vaccine[]"
-                                                    id='.$value['name'].'
+                                                    id='.$value['id'].'
                                                     value = '.$value['id'].' 
                                                     class="filled-in chk-col-green">
-                                                    <label for='.$value['name'].'>'.$value['name'].'</label>';
+                                                    <label for='.$value['id'].'>'.$value['name'].'</label>';
                                                 }
                                             }
                                         ?>

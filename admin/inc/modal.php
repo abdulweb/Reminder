@@ -255,7 +255,7 @@ Add health worker Modal -->
                             <div class="col-lg-6 col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input type="email" id="username" name="username" class="form-control" placeholder="Email Address" required="required">
+                                        <input type="email" id="username" name="username" class="form-control" placeholder="Email Address" disabled="disabled">
                                     </div>
                                 </div>
                             </div>

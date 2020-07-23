@@ -27,9 +27,8 @@
                     $hwID = $_POST['hwID'];
                     $hospital_name = $_POST['hospital_name'];
                     $phone = $_POST['phone'];
-                    $username = $_POST['username'];
                     $full_name = $_POST['full_name'];
-                   $object->updateHealthWorker($update_userID,$hwID, $hospital_name,$phone,$username,$full_name);
+                   $object->updateHealthWorker($update_userID,$hwID, $hospital_name,$phone,$full_name);
                 }
             ?>
         </div>
@@ -83,12 +82,12 @@
                                                 <td><?=$value['full_name']?></td>
                                                 <td><?=$value['phone_no']?></td>
                                                 <td><?=$object->gethospitalName($value['hospital_id'])?></td>
-                                                <?php $getUSer = $object->getOneUser($value['id']); foreach ($getUSer as $getOneUSer) {
+                                                <?php $getUSer = $object->getOneUser($value['id']);$created_date=''; foreach ($getUSer as $getOneUSer) {
                                                        $userName = $getOneUSer['username'];
                                                        $userID = $getOneUSer['id'];
-                                                       $date = $getOneUSer['created_at'];
+                                                       $created_date = $getOneUSer['created_at'];
                                                    } ?>
-                                                <td><?=$date?></td>
+                                                <td><?=$created_date?></td>
                                                 <td>
 
                                                     <div class="demo-single-button-dropdowns">
@@ -103,7 +102,7 @@
                                                                     </a>
                                                                 </li>
                                                                 <li>
-                                                                        <button type="submit" name = "delete_HW" class="btn btn-link cancel-button"id="<?=$value['id']?>">Delete Record</button>
+                                                                        <button type="submit" class="btn btn-link cancel-button "id="<?=$value['id']?>">Delete Record</button>
                                                             </ul>
                                                         </div>
                                                     </div>
