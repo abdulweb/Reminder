@@ -32,6 +32,19 @@
                                 </a>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <?php
+                                    if (isset($_POST['update_child_record'])) {
+                                         $child_first_name = $_POST['child_first_name'];
+                                         $child_middle_name = $_POST['child_middle_name'];
+                                         $child_dob = $_POST['child_dob'];
+                                         $child_id = $_POST['child_id'];
+                                       $object->updateChildRecord($child_first_name,$child_middle_name, $child_dob, $child_id);
+                                    }
+                                ?>
+                            </div>
+                        </div>
                     </div>
                     <div class="body table-responsive">
                         <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
@@ -59,7 +72,7 @@
                                                <td><?=$result['dob']?></td>
                                                <td><?=$result['created_at']?></td>
                                                <td>
-                                                   <a style="color: seagreen" title="Edit" data-toggle="modal"data-target="#updateVaccineModal"onclick="preload_edit_child_modal('<?=$result['first_name']?>','<?=$result['last_name']?>','<?=$result['middle_name']?>','<?=$result['id']?>')">
+                                                   <a style="color: seagreen; cursor: pointer;" title="Edit" data-toggle="modal"data-target="#UpdateChildModal" onclick="preload_edit_child_modal('<?=$result['first_name']?>','<?=$result['last_name']?>','<?=$result['other_name']?>','<?=$result['dob']?>','<?=$result['id']?>')">
                                                     <i class="material-icons">edit</i>
                                                     </a>
 
@@ -80,5 +93,6 @@
 </section>
 
 
+<?php include ('inc/script.php'); ?>
 <?php include ('inc/modal.php'); ?>
 <?php include ('inc/footer.php'); ?>

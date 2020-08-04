@@ -1,4 +1,4 @@
-<!-- Add health worker Modal -->
+Add health worker Modal -->
 <div class="modal fade" id="largeModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -407,3 +407,66 @@
     </div>
 </div>
 <!-- End of viewVaccineHistoryModal Modal -->
+
+<!-- Add UpdateChildModal Modal -->
+<div class="modal fade" id="UpdateChildModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="viewVaccineHistoryModalLabel">Update Child Record</h4>
+            </div>
+            <div class="modal-body"> 
+                <div class="body">
+                    <form action="children.php" method="post">
+                        <div class="row clearfix">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" id="child_first_name" name="child_first_name" class="form-control" placeholder="First Name" required="required">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" id="child_last_name" name="child_last_name" class="form-control" disabled="disabled">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- second row -->
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" id="child_middle_name" name="child_middle_name" class="form-control" placeholder="Middle Name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" placeholder="Date of Birth" id="child_dob" name="child_dob" class="datepicker form-control" required="required">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-sm-12">
+                                <input type="hidden" name="child_id" id="child_id">
+                                <button type="submit" name="update_child_record" class="btn btn-raised g-bg-cyan" style="cursor: pointer;">
+                                    Submit
+                                </button>
+                                
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-block btn-raised waves-effect" data-dismiss="modal"><i class="material-icon">cancel</i>CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of UpdateChildModal Modal

@@ -27,6 +27,18 @@
         $('#userID').attr('value', id);
     }
 
+    function preload_edit_child_modal(first_name,last_name,middle_name,dob,id) {
+        $('#child_first_name').attr('value', first_name);
+        $('#child_first_name').text(first_name);
+        $('#child_last_name').attr('value', last_name);
+        $('#child_last_name').text(last_name);
+        $('#child_middle_name').attr('value', middle_name);
+        $('#child_middle_name').text(middle_name);
+        $('#child_dob').attr('value', dob);
+        $('#child_dob').text(dob);
+        $('#child_id').attr('value', id);
+    }
+
     // View child vaccine histroy from caregiver section
     function preload_child_vaccine_history_modal(childVaccine) {
         for (var i = 0; i < childVaccine.length; i++) {

@@ -707,6 +707,21 @@ class user extends dbh
 		}
 	}
 
+	// Update child record 
+	public function updateChildRecord($child_first_name,$child_middle_name, $dob,$id)
+	{
+		$explod_date = explode(" ",$dob);
+	    $main = $explod_date[1]."/".$this->getMonth($explod_date[2])."/".$explod_date[3];
+		$stmt = "UPDATE children set first_name = '$child_first_name',middle_name = '$child_middle_name', dob = '$main' where id = '$id'";
+		 $result = $this->connect()->query($stmt);
+		 if($result)
+		 {
+		 	echo '<div class ="alert bg-teal alert-dismissible"> <strong> Health Worker Record Updated Successfully  </strong> </div>';	 }
+		 else{
+		 	echo '<div class ="alert bg-danger alert-dismissible"> <strong> Please Try Agin. Error Occured!!!  </strong> </div>';
+		 }
+		}
+
 /* ===================================================================*/
 }
 // end of class
