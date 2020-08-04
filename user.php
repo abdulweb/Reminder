@@ -256,6 +256,10 @@ class user extends dbh
 		return 'CA/'.strtoupper(substr($name,0,2)).'/'.$this->serialNoLength($serialNo);
 	}
 
+	public function uniqueCodeChild($name,$serialNo){
+		return 'CI/'.strtoupper(substr($name,0,2)).'/'.$this->serialNoLength($serialNo);
+	}
+
 	// Update health worker
 	public function updateHealthWorker($update_userID,$hwID, $hospital_name,$phone,$full_name)
 	{
@@ -560,6 +564,57 @@ class user extends dbh
 		}
 	}
 
+	// Get Particular Caregiver
+	public function getOneCaregiver($caregiverID){
+		$stmt = "SELECT * FROM caregiver where id ='$caregiverID'";
+		$result = $this->connect()->query($stmt);
+		$numberrows = $result->num_rows;
+		if ($numberrows >0) {
+			while ($rows= $result->fetch_assoc()) {
+				$row_date [] = $rows;
+		}
+		 return $row_date;
+			
+		}
+		else{
+			return '';
+		}
+	}
+	// Get children for a caregiver
+	public function getChildrenForParent($caregiverID){
+		$stmt = "SELECT * FROM children where caregiver_id ='$caregiverID'";
+		$result = $this->connect()->query($stmt);
+		$numberrows = $result->num_rows;
+		if ($numberrows >0) {
+			while ($rows= $result->fetch_assoc()) {
+				$row_date [] = $rows;
+		}
+		 return $row_date;
+			
+		}
+		else{
+			return '';
+		}
+	}
+
+	// childrenVaccineRespond
+	function childrenVaccineRespond($childID)
+	{
+		$stmt = "SELECT * FROM child_vaccine WHERE child_id = '$childID'";
+		$result = $this->connect()->query($stmt);
+		$numberrows = $result->num_rows;
+		if ($numberrows >0) {
+			while ($rows= $result->fetch_assoc()) {
+				$row_date [] = $rows;
+		}
+		 return $row_date;
+			
+		}
+		else{
+			return '';
+		}
+	}
+
 	// Month method
 	function getMonth($month)
 	{
@@ -600,6 +655,25 @@ class user extends dbh
 			return '12';
 		}
 	}
+	function weekInNumber($day)
+	{
+		if ($day >= 7) {
+			return 1;
+		}
+		elseif ($day >= 14) {
+			# code...
+		}
+	}
+
+	function currentAge($dob)
+	{
+		$child_age = explode('/', $dob);
+		$day = $child_age[0]; $month= $child_age[1]; $year = $child_age[2];
+		$real_day = date('d') - $day;
+		$real_month = date('m') - $month;
+		$real_year = date('Y') - $year;
+		return ($real_year . " ". 'year'. " ". $real_month . " ". 'month'." ". $real_day . " ". 'days' );
+	}
 
 	function child_vacinnation($vaccine,$childID)
 	{
@@ -616,7 +690,21 @@ class user extends dbh
 		 }
 		 	
 		
-
+	}
+	public function getAllChildren(){
+		$stmt = "SELECT * FROM children ORDER BY id DESC";
+		$result = $this->connect()->query($stmt);
+		$numberrows = $result->num_rows;
+		if ($numberrows >0) {
+			while ($rows= $result->fetch_assoc()) {
+				$row_date [] = $rows;
+		}
+		 return $row_date;
+			
+		}
+		else{
+			return '';
+		}
 	}
 
 /* ===================================================================*/

@@ -27,6 +27,25 @@
         $('#userID').attr('value', id);
     }
 
+    // View child vaccine histroy from caregiver section
+    function preload_child_vaccine_history_modal(childVaccine) {
+        for (var i = 0; i < childVaccine.length; i++) {
+          childVaccine[i]
+        $('#vaccineName').attr('value', childVaccine[i]);
+        $('#vaccineName').text(childVaccine[i]);
+        // $('#createdAt').attr('value', hopital);
+        // $('#createdAt').text(hopital);
+        // $('#hwID').attr('value', id);
+        // $('#userID').attr('value', id);
+    }
+  }
+  function preload_add_child_and_vaccine_modal(caregiverID)
+  {
+    $('$caregiverID').attr('value', caregiverID);
+    // $('#caregiverID').text(caregiverID);
+    // window.location.href = "viewCaregiver.php?name=" + caregiverID;
+  }
+
  function edit_hf(id)
 {
     //alert('hey');

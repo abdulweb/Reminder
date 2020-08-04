@@ -1,4 +1,4 @@
-Add health worker Modal -->
+<!-- Add health worker Modal -->
 <div class="modal fade" id="largeModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -306,3 +306,104 @@ Add health worker Modal -->
     </div>
 </div>
 <!-- End of Update Health worker Modal-->
+
+<!-- Add childUpdateVacinneModal Modal -->
+<div class="modal fade" id="childUpdateVacinneModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="childUpdateVacinneModalLabel">Update Child Vaccine Histroy</h4>
+            </div>
+            <div class="modal-body"> 
+                <div class="body">
+                    <form action="vaccine.php" method="post">
+                        <div class="row clearfix">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <?php $caregiverID; ?>
+                                    <div class="form-group drop-custum">
+                                            <select class="form-control show-tick" required="required" name="childrenID">
+                                                <option id="child_name"></option>
+                                                <option value="" id="child_name">-- Select Child Name --</option>
+                                                <?php $results =$object->getChildrenForParent($caregiverID); foreach ($results as $value) {
+                                                    ?>
+                                                    <option value="<?=$value['id']?>"><?=$value['first_name']. " ". $value['laste_name']." ". $value['middle_name']?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <div class="form-group drop-custum">
+                                            <select class="form-control show-tick" required="required" name="vaccineID">
+                                                <option id="vaccine_name"></option>
+                                                <option value="" id="vaccine_name">-- Select Vaccine Name --</option>
+                                                <?php $results =$object->getVaccine(); foreach ($results as $value) {
+                                                    ?>
+                                                    <option value="<?=$value['id']?>"><?=$value['name']?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-sm-12">
+                                <button type="submit" name="add_vaccine" class="btn btn-raised g-bg-cyan">
+                                    Submit
+                                </button>
+                                
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-block btn-raised waves-effect" data-dismiss="modal"><i class="material-icon">cancel</i>CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of childUpdateVacinneModal Modal -->
+
+<!-- Add viewVaccineHistoryModal Modal -->
+<div class="modal fade" id="viewVaccineHistoryModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="viewVaccineHistoryModalLabel">Update Child Vaccine Histroy</h4>
+            </div>
+            <div class="modal-body"> 
+                <div class="body">
+                    <form action="vaccine.php" method="post">
+                        <div class="row clearfix">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <table class="table table-bordered table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>S/no</th>
+                                            <th>Vaccine Name</th>
+                                            <th>Date Collected</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><p id="vaccineName"></p></td>
+                                             
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-block btn-raised waves-effect" data-dismiss="modal"><i class="material-icon">cancel</i>CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of viewVaccineHistoryModal Modal -->
