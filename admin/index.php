@@ -14,8 +14,13 @@
                 <div class="info-box-4 hover-zoom-effect">
                     <div class="icon"> <i class="zmdi zmdi-account col-blue"></i> </div>
                     <div class="content">
-                        <div class="text">New Patient</div>
-                        <div class="number">27</div>
+                        <div class="text">Total Contact</div>
+                            <div class="number">
+                                <?=
+                                    count($object->getCaregiverAndChildren())+count($object->getAllChildren()) + count($object->getHealthWorker());
+                                ?>
+                                
+                            </div>
                     </div>
                 </div>
             </div>
@@ -23,8 +28,8 @@
                 <div class="info-box-4 hover-zoom-effect">
                     <div class="icon"> <i class="zmdi zmdi-account col-green"></i> </div>
                     <div class="content">
-                        <div class="text">OPD Patient</div>
-                        <div class="number">12</div>
+                        <div class="text">Total Caregiver</div>
+                        <div class="number"><?=count($object->getCaregiverAndChildren());?></div>
                     </div>
                 </div>
             </div>
@@ -32,8 +37,8 @@
                 <div class="info-box-4 hover-zoom-effect">
                     <div class="icon"> <i class="zmdi zmdi-bug col-blush"></i> </div>
                     <div class="content">
-                        <div class="text">Today's Operations</div>
-                        <div class="number">05</div>
+                        <div class="text">Total Children</div>
+                        <div class="number"><?=count($object->getAllChildren());?></div>
                     </div>
                 </div>
             </div>
@@ -41,8 +46,17 @@
                 <div class="info-box-4 hover-zoom-effect">
                     <div class="icon"> <i class="zmdi zmdi-balance col-cyan"></i> </div>
                     <div class="content">
-                        <div class="text">Hospital Earning</div>
-                        <div class="number">$3,540</div>
+                        <div class="text">Total Health Workers</div>
+                        <div class="number"><?=count($object->getHealthWorker());?></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="info-box-4 hover-zoom-effect">
+                    <div class="icon"> <i class="zmdi zmdi-balance col-cyan"></i> </div>
+                    <div class="content">
+                        <div class="text">Total Health Facilities</div>
+                        <div class="number"><?=count($object->getHealthFacility());?></div>
                     </div>
                 </div>
             </div>

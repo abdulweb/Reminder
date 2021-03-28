@@ -58,6 +58,22 @@
     // window.location.href = "viewCaregiver.php?name=" + caregiverID;
   }
 
+  function preload_add_child_to_caregiver_modal(caregiverID, firstName, otherName,phoneNo)
+  {
+    $('#caregiverFirstName').attr('value', firstName);
+    $('#caregiverFirstName').text(firstName);
+    $('#caregiverOtherName').attr('value', otherName);
+    $('#caregiverOtherName').text(otherName);
+    $('#caregiverPhoneNo').attr('value', phoneNo);
+    $('#caregiverPhoneNo').text(phoneNo);
+    $('#caregiver_firstName').attr('value', firstName);
+    $('#caregiver_phoneNo').attr('value', phoneNo);
+    $('#caregiverID').attr('value', caregiverID);
+
+    // $('#caregiverID').text(caregiverID);
+    // window.location.href = "viewCaregiver.php?name=" + caregiverID;
+  }
+
  function edit_hf(id)
 {
     //alert('hey');

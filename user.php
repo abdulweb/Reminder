@@ -196,6 +196,20 @@ class user extends dbh
 		}
 	}
 
+	public function gethospitalIdBYName($name){
+		$stmt = "SELECT id from health_facility where name = '$name'";
+		$result = $this->connect()->query($stmt);
+		$numberrows = $result->num_rows;
+		if ($numberrows > 0) {
+			$data = $result->fetch_assoc();
+			$string = implode('|',$data);
+			return $string;
+		}
+		else{
+			return '';
+		}
+	}
+
 	public function insertname($email,$name,$hospital,$phone)
 	{
 		$stmty = "SELECT id from users where username = '$email'";
@@ -546,6 +560,56 @@ class user extends dbh
 		else{
 			echo  '<div class ="alert bg-danger alert-dismissible"> <strong> All field are required  </strong> </div>';
 		}
+	}
+
+	function insertOneChild($firstName,$child_firstName,$child_middleName,$dob,$vaccine,$caregiverID,$phone){
+		if (!empty($caregiverID) || !empty($firstName)|| !empty($dob) || !empty($child_firstName)) 
+		{
+			if (empty($this->checkChild($child_firstName,$firstName,$child_middleName,$phone,$dob))) {
+					// 
+						$date = date('Y-m-d');
+						$explod_date = explode(" ",$dob);
+	                    $main = $explod_date[1]."/".$this->getMonth($explod_date[2])."/".$explod_date[3];
+						
+						
+							$caregiver_id = $caregiverID;
+							$insert = "INSERT INTO children(first_name,last_name,middle_name,dob,caregiver_id,created_at) Values('$child_firstName','$firstName','$child_middleName','$main','$caregiver_id','$date')";
+							$occ = 	$this->connect()->query($insert);
+							if ($occ) 
+							{
+								// vacination insertion
+								$select = $this->connect()->query("SELECT * FROM children ORDER BY id DESC LIMIT 1")->fetch_assoc();
+								$gotID = $select['id'];
+									if (empty($vaccine) or count($vaccine) < 1) {
+										echo "not vaccine added";
+									}
+									else
+									{
+										if($this->child_vacinnation($vaccine,$gotID)){
+											echo '<div class ="alert bg-teal alert-dismissible"> <strong> New child  Added Successfully  </strong> </div>';
+										}
+										else{
+											echo '<div class ="alert alert-danger alert-dismissible"> <strong> Error Occured while trying to add children !!! Please Try Again </strong> </div>';
+										}
+									}
+								// 
+								
+							}
+							else
+							{
+							echo '<div class ="alert alert-danger alert-dismissible"> <strong> Error Occured !!! Please Try Again at added child </strong> </div>';
+						
+					}
+					// 
+				}
+				else{
+					echo $this->checkChild($child_firstName,$firstName,$child_middleName,$phone,$dob);
+				}
+		}
+		else{
+			echo  '<div class ="alert bg-danger alert-dismissible"> <strong> All field are required  </strong> </div>';
+		}
+
 	}
 
 	function getCaregiverAndChildren()

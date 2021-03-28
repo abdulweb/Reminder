@@ -20,7 +20,7 @@
                     <a href="healthWorker.php"><i class="zmdi zmdi-account"></i><span>Health Workers</span></a>
                 </li>
                 <li>
-                    <a href="caregiver.php"><i class="zmdi zmdi-account-add"></i><span>caregiver</span></a>
+                    <a href="caregiver.php"><i class="zmdi zmdi-account-add"></i><span>Caregiver</span></a>
                 </li>
 
                 <li>

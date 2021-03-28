@@ -33,6 +33,17 @@
                    $object->insertCaregiverAndChild($caregiver_phoneNo,$caregiver_lastName,$caregiver_firstName,$child_firstName,$child_middleName,$dob,$vaccine);
                 }
 
+                if (isset($_POST['add_new_child'])) {
+                    $caregiver_firstName = $_POST['caregiver_firstName'];
+                    $caregiver_phoneNo = $_POST['caregiver_phoneNo'];
+                    $child_firstName =  $_POST['child_first_name'];
+                    $child_middleName = $_POST['child_middleName'];
+                    $dob = $_POST['dob'];
+                    $vaccine = $_POST['vaccine'];
+                    $caregiverID = $_POST['caregiverID'];
+                    $object->insertOneChild($caregiver_firstName,$child_firstName,$child_middleName,$dob,$vaccine,$caregiverID,$caregiver_phoneNo);
+                }
+
             ?>
         </div>
         <!-- Caregiver Info -->
@@ -62,7 +73,10 @@
                             ?>
                         <div class="row clearfix">
                             <div class="col-md-12">
-                                <button class="btn btn-raised btn-info">Add new child</button>
+                               
+                                <!--  -->
+                                <a href="#" type="button" class="btn btn-raised btn-info" data-toggle="modal" data-target="#addNewChildToCaregiverModal" onclick = "preload_add_child_to_caregiver_modal('<?=$getID?>','<?=$value['first_name']?>', '<?=$value['other_name']?>' , '<?=$value['phone_no']?>')">Add New Child Record</a>
+                                <!--  -->
                                 <a href="#" type="button" class="btn btn-raised btn-success" data-toggle="modal" data-target="#childUpdateVacinneModal" onclick = "preload_add_child_and_vaccine_modal('<?=$getID?>')">Update child vaccine Record</a>
                             </div>
                             <div class="col-lg-4 col-sm-12">

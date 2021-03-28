@@ -276,10 +276,10 @@ Add health worker Modal -->
                                         <div class="form-group drop-custum">
                                             <select class="form-control show-tick" required="required" name="hospital_name">
                                                 <option id="hospital_name"></option>
-                                                <option value="" id="hospital_name">-- Select Hospital Name --</option>
-                                                <?php $results =$object->getAllHospital(); foreach ($results as $value) {
+                                                <option value="" id="hospital_name">-- Select Hospital Names --</option>
+                                                <?php $results =$object->getAllHospital(); foreach ($results as $result) {
                                                     ?>
-                                                    <option value="<?=$value['id']?>"><?=$value['name']?></option>
+                                                    <option value="<?=$result['id']?>"><?=$result['name']?></option>
                                                 <?php } ?>
                                             </select>
                                         </div>
@@ -366,6 +366,86 @@ Add health worker Modal -->
     </div>
 </div>
 <!-- End of childUpdateVacinneModal Modal -->
+
+<!-- Add addNewChildToCaregiverModal Modal -->
+<div class="modal fade" id="addNewChildToCaregiverModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="addNewChildToCaregiverModalLabel">Add New Child Record to <span id="caregiverFirstName"></span> <span id="caregiverOtherName"></span> with Phone Number <span id="caregiverPhoneNo"></span> </h4>
+            </div>
+            <div class="modal-body"> 
+                <div class="body">
+                    <form action="" method="post">
+                        <div class="row clearfix">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="hidden" id="caregiverID" name="caregiverID">
+                                        <input type="hidden" id="caregiver_firstName" name="caregiver_firstName">
+                                        <input type="hidden" id="caregiver_phoneNo" name="caregiver_phoneNo">
+                                        <input type="text" id="child_first_name" name="child_first_name" class="form-control" placeholder="Child First Name" required="required">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" id="child_middleName" name="child_middleName" class="form-control" placeholder="Child Middle Name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" name="dob" class="datepicker form-control" placeholder="Date of Birth" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--  -->
+                            <strong class="text-dark">Vaccine Information: <small class="text-success">Kindly check/tick vaccine given to the above (new) child</small></strong>  
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <div class="form">
+                                        <?php
+                                            $results = $object->getVaccine();
+                                            if (!empty($results) || count($results)) {
+                                                foreach ($results as $value) {
+                                                    echo '<input type="checkbox" 
+                                                    name="vaccine[]"
+                                                    id='.$value['id'].'
+                                                    value = '.$value['id'].' 
+                                                    class="filled-in chk-col-green">
+                                                    <label for='.$value['id'].'>'.$value['name'].'</label>';
+                                                }
+                                            }
+                                        ?>
+                                        
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!--  -->
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-sm-12">
+                                <button type="submit" name="add_new_child" class="btn btn-raised g-bg-cyan">
+                                    Submit
+                                </button>
+                                
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-block btn-raised waves-effect" data-dismiss="modal"><i class="material-icon">cancel</i>CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of addNewChildToCaregiverModal Modal -->
+
 
 <!-- Add viewVaccineHistoryModal Modal -->
 <div class="modal fade" id="viewVaccineHistoryModal" tabindex="-1" role="dialog">
@@ -469,4 +549,4 @@ Add health worker Modal -->
         </div>
     </div>
 </div>
-<!-- End of UpdateChildModal Modal
+<!-- End of UpdateChildModal Modal-->
