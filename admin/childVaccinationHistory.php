@@ -1,7 +1,18 @@
 <?php include ('inc/header.php'); ?>
 <?php include ('inc/topbar.php'); ?>
 <?php include ('inc/sidebar.php'); ?>
+<?php
+    if (empty($_GET['id'])) {
+        header('location:caregiver.php');
+    }
+    else
+    {
+        $getID = $_GET['id'];
 
+        $results = $object->getOneChild($getID);
+        foreach ($results as $key => $value) {       
+        
+?>
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">
@@ -11,7 +22,7 @@
                 <ul class="breadcrumb">
                      <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
                      <li class="breadcrumb-item"><a href="caregiver.php">Caregiver</a></li>
-                     <li class="breadcrumb-item active"><a>View Caregiver</a></li>
+                     <li class="breadcrumb-item active"><a><?=$value['first_name']. " ". $value['last_name']. " ". $value['middle_name']?></a></li>
                 </ul>
             </div>
         </div>
@@ -26,24 +37,10 @@
                     $child_middleName = $_POST['child_middleName'];
                     $dob = $_POST['dob'];
                     $vaccine = $_POST['vaccine'];
-                    // echo $caregiver_lastName.$caregiver_firstName.$caregiver_phoneNo.$dob.$child_firstName;
-                    // lets twick something here
-                        // print_r($_POST['vaccine']);
-                    // 
+                    
                    $object->insertCaregiverAndChild($caregiver_phoneNo,$caregiver_lastName,$caregiver_firstName,$child_firstName,$child_middleName,$dob,$vaccine);
                 }
-
-                if (isset($_POST['add_new_child'])) {
-                    $caregiver_firstName = $_POST['caregiver_firstName'];
-                    $caregiver_phoneNo = $_POST['caregiver_phoneNo'];
-                    $child_firstName =  $_POST['child_first_name'];
-                    $child_middleName = $_POST['child_middleName'];
-                    $dob = $_POST['dob'];
-                    $vaccine = $_POST['vaccine'];
-                    $caregiverID = $_POST['caregiverID'];
-                    $object->insertOneChild($caregiver_firstName,$child_firstName,$child_middleName,$dob,$vaccine,$caregiverID,$caregiver_phoneNo);
-                }
-
+                
             ?>
         </div>
         <!-- Caregiver Info -->
@@ -51,7 +48,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
                     <div class="header">
-                        <h2>Caregiver Information <small></small> </h2>
+                        <h2><?=$value['first_name']. " ". $value['last_name']. " ". $value['middle_name']?> Information <small></small> </h2>
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="zmdi zmdi-more-vert"></i></a>
                             </li>
@@ -59,62 +56,21 @@
                     </div>
                     <div class="body">
                         <!-- <form action="add-caregiver.php" method="post"> -->
-                            <?php
-                                if (empty($_GET['id'])) {
-                                    header('location:caregiver.php');
-                                }
-                                else
-                                {
-                                    $getID = $_GET['id'];
-
-                                    $results = $object->getOneCaregiver($getID);
-                                    foreach ($results as $key => $value) {       
-                                    
-                            ?>
-                        <div class="row clearfix">
-                            <div class="col-md-12">
-                               
-                                <!--  -->
-                                <a href="#" type="button" class="btn btn-raised btn-info" data-toggle="modal" data-target="#addNewChildToCaregiverModal" onclick = "preload_add_child_to_caregiver_modal('<?=$getID?>','<?=$value['first_name']?>', '<?=$value['other_name']?>' , '<?=$value['phone_no']?>')">Add New Child Record</a>
-                                <!--  -->
-                                <a href="#" type="button" class="btn btn-raised btn-success" data-toggle="modal" data-target="#childUpdateVacinneModal" onclick = "preload_add_child_and_vaccine_modal('<?=$getID?>')">Update child vaccine Record</a>
-                            </div>
-                            <div class="col-lg-4 col-sm-12">
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <input type="text" value="<?=$value['first_name']?>" class="form-control" disabled="disabled">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-12">
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <input type="text" value="<?=$value['other_name']?>" class="form-control" disabled="disabled">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-12">
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <input type="text" value="<?=$value['phone_no']?>" class="form-control" disabled="disabled">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <?php
-                                }
-                            }
-                        ?>
+                            
+                        <!-- <div class="row clearfix">
+                        
+                        </div> -->
+                        
                     </div>
                 </div>
             </div>
         </div>
         <!-- Child Info -->
         <div class="row clearfix">
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <div class="card">
                     <div class="header">
-                        <h2>Children Information</small> </h2>                      
+                        <h2>Vaccination Information</small> </h2>                      
                     </div>
                     <div class="body">
                         <div class="row clearfix">
@@ -123,45 +79,29 @@
                                     <thead>
                                         <tr>
                                             <th>Sn</th>
-                                            <th>Child Unique Code</th>
-                                            <th>Full Name</th>
-                                            <th>Date of Birth</th>
-                                            <th>Current Age</th>
-                                            <th>Created Date</th>
-                                            <th>Action</th>
+                                            <th>Vaccination Name</th>
+                                            <th>Date Received</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                            $responds = $object->getChildrenForParent($getID);
+                                            $responds = $object->childrenVaccineRespond($getID);
                                             if (!empty($responds)) {
                                                 foreach ($responds as $key => $respond) {
                                                  ?>
                                         <tr>
                                             <td><?=++$key?></td>
-                                            <td><?=$object->uniqueCodeChild($respond['first_name'].$respond['other_name'],$respond['id'])?></td>
-                                            <td><?=$respond['first_name']. " ". $respond['last_name']." ". $respond['middle_name']?>
-                                            </td>
-                                            <td><?=$respond['dob']?>
-                                            <td><?php print_r($object->currentAge($respond['dob']))?>
-                                            <td><?=$respond['created_at']?></td>
                                             <td>
-                                                <!-- Get children vaccine taken -->
-                                                <?php
-                                                    $childrenVaccineRespond = $object->childrenVaccineRespond($respond['id']);
-                                                ?>
-                                                 
-                                                <a href="#" title="View Vaccine Histroy"><i class="material-icons" data-toggle="modal"
-                                                data-target="#viewVaccineHistoryModal"
-                                                >visibility</i></a>
-
-                                                   <a href="#" title="Edit Child" style="margin-left: 10px; color: seagreen;"><i class="material-icons">edit</i></a>
-
-                                                   <a href="#" title="Delete" onclick="return confirm('Ready to Delete?')" style="margin-left: 10px; color: rgb(253,58,100);"><i class="material-icons">cancel</i></a>
-                                            </td>
+                                                <?=$object->getVaccineNameById($respond['vaccine_id'])?>
+                                                
+                                                    
+                                                </td>
+                                            <td><?=$respond['created_at']?></td>
+                                            
                                         </tr>
                                         <?php
                                               }
+
                                             }
                                         ?>
                                     </tbody>
@@ -172,12 +112,53 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-4">
+                    <div class="card">
+                        <div class="header">
+                            <h4 class="text-dark">Update Vaccine Info</small> </h4>
+                        </div>
+                        <div class="body">
+                                <div class="row clearfix">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            <div class="form">
+                                                <?php
+                                                    $results = $object->getVaccine();
+                                                    $compare = $object->vaccineCheck($results, $responds);
+                                                    if (!empty($compare) || count($compare)) {
+                                                        foreach ($compare as $value) {
+                                                            echo '<input type="checkbox" 
+                                                            name="vaccine[]"
+                                                            id='.$value['id'].'
+                                                            value = '.$value['id'].' 
+                                                            class="filled-in chk-col-green">
+                                                            <label for='.$value['id'].'>'.$value['name'].'</label>';
+                                                        }
+                                                    }
+                                                ?>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <button type="submit" name="add_cargiver" class="btn btn-raised btn-block g-bg-cyan">Submit</button>
+                                    </div>
+                                </div>
+
+                        </div>
+                    </div>
+
+            </div>
         </div>
         <!-- vaccination info -->
         
     <!-- </form> -->
     </div>
 </section>
+<?php
+        }
+    }
+?>
 
 
 <?php include ('inc/modal.php'); ?>

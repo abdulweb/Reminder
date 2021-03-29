@@ -644,6 +644,24 @@ class user extends dbh
 			return '';
 		}
 	}
+
+	// Get Particular child
+	public function getOneChild($childID){
+		$stmt = "SELECT * FROM children where id ='$childID'";
+		$result = $this->connect()->query($stmt);
+		$numberrows = $result->num_rows;
+		if ($numberrows >0) {
+			while ($rows= $result->fetch_assoc()) {
+				$row_date [] = $rows;
+		}
+		 return $row_date;
+			
+		}
+		else{
+			return '';
+		}
+	}
+
 	// Get children for a caregiver
 	public function getChildrenForParent($caregiverID){
 		$stmt = "SELECT * FROM children where caregiver_id ='$caregiverID'";
@@ -785,6 +803,26 @@ class user extends dbh
 		 	echo '<div class ="alert bg-danger alert-dismissible"> <strong> Please Try Agin. Error Occured!!!  </strong> </div>';
 		 }
 		}
+
+// Get Vaccine Names based by ID
+	public function getVaccineNameById($id){
+		$stmt = "SELECT name from vaccine where id = '$id'";
+		$result = $this->connect()->query($stmt);
+		$numberrows = $result->num_rows;
+		if ($numberrows > 0) {
+			$data = $result->fetch_assoc();
+			$string = implode('|',$data);
+			return $string;
+		}
+		else{
+			return '';
+		}
+	}
+
+	public function vaccineCheck($arrayName1, $array2)
+	{
+		return $result = array_diff($arrayName1, $array2);
+	}
 
 /* ===================================================================*/
 }

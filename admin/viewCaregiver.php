@@ -1,7 +1,18 @@
 <?php include ('inc/header.php'); ?>
 <?php include ('inc/topbar.php'); ?>
 <?php include ('inc/sidebar.php'); ?>
+<?php
+        if (empty($_GET['id'])) {
+            header('location:caregiver.php');
+        }
+        else
+        {
+            $getID = $_GET['id'];
 
+            $results = $object->getOneCaregiver($getID);
+            foreach ($results as $key => $value) {       
+            
+    ?>
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">
@@ -11,7 +22,7 @@
                 <ul class="breadcrumb">
                      <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
                      <li class="breadcrumb-item"><a href="caregiver.php">Caregiver</a></li>
-                     <li class="breadcrumb-item active"><a>View Caregiver</a></li>
+                     <li class="breadcrumb-item active"><a><?=$value['first_name']. " ".$value['other_name'] ?></a></li>
                 </ul>
             </div>
         </div>
@@ -59,18 +70,7 @@
                     </div>
                     <div class="body">
                         <!-- <form action="add-caregiver.php" method="post"> -->
-                            <?php
-                                if (empty($_GET['id'])) {
-                                    header('location:caregiver.php');
-                                }
-                                else
-                                {
-                                    $getID = $_GET['id'];
-
-                                    $results = $object->getOneCaregiver($getID);
-                                    foreach ($results as $key => $value) {       
-                                    
-                            ?>
+                            
                         <div class="row clearfix">
                             <div class="col-md-12">
                                
@@ -147,13 +147,9 @@
                                             <td><?=$respond['created_at']?></td>
                                             <td>
                                                 <!-- Get children vaccine taken -->
-                                                <?php
-                                                    $childrenVaccineRespond = $object->childrenVaccineRespond($respond['id']);
-                                                ?>
+                                                
                                                  
-                                                <a href="#" title="View Vaccine Histroy"><i class="material-icons" data-toggle="modal"
-                                                data-target="#viewVaccineHistoryModal"
-                                                >visibility</i></a>
+                                                <a href="childVaccinationHistory.php?id=<?php echo htmlentities($respond['id']);?>" title="View Vaccine Histroy"><i class="material-icons">visibility</i></a>
 
                                                    <a href="#" title="Edit Child" style="margin-left: 10px; color: seagreen;"><i class="material-icons">edit</i></a>
 
