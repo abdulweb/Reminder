@@ -28,17 +28,15 @@
         </div>
         <div>
             <?php 
-                if(isset($_POST['add_cargiver']))
+                if(isset($_POST['Update_vaccine_record']))
                 {
-                    $caregiver_lastName = $_POST['caregiver_lastName'];
-                    $caregiver_firstName = $_POST['caregiver_firstName'];
-                    $caregiver_phoneNo = $_POST['caregiver_phoneNo'];
-                    $child_firstName = $_POST['child_firstName'];
-                    $child_middleName = $_POST['child_middleName'];
-                    $dob = $_POST['dob'];
                     $vaccine = $_POST['vaccine'];
+                    $childID = $_POST['childID'];
                     
-                   $object->insertCaregiverAndChild($caregiver_phoneNo,$caregiver_lastName,$caregiver_firstName,$child_firstName,$child_middleName,$dob,$vaccine);
+                   if($object->child_vacinnation($vaccine,$childID))
+                   {
+                    echo '<div class ="alert bg-teal alert-dismissible"> <strong> child vaccine updated Successfully</strong> </div>';
+                   }
                 }
                 
             ?>
@@ -81,6 +79,7 @@
                                             <th>Sn</th>
                                             <th>Vaccination Name</th>
                                             <th>Date Received</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -93,10 +92,20 @@
                                             <td><?=++$key?></td>
                                             <td>
                                                 <?=$object->getVaccineNameById($respond['vaccine_id'])?>
-                                                
-                                                    
                                                 </td>
                                             <td><?=$respond['created_at']?></td>
+                                            <td>
+                                                <div class="demo-single-button-dropdowns">
+                                                        <div class="btn-group">
+                                                            <button type="button" class="btn bg-red dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Action <span class="caret"></span> </button>
+                                                            <ul class="dropdown-menu">
+                                                                <li>
+                                                                    <button type="submit" class="btn btn-link cancel-button "id="<?=$respond['id']?>">Delete Record</button>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                            </td>
                                             
                                         </tr>
                                         <?php
@@ -118,15 +127,15 @@
                             <h4 class="text-dark">Update Vaccine Info</small> </h4>
                         </div>
                         <div class="body">
+                            <form action="" method="post">
                                 <div class="row clearfix">
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <div class="form">
                                                 <?php
                                                     $results = $object->getVaccine();
-                                                    $compare = $object->vaccineCheck($results, $responds);
-                                                    if (!empty($compare) || count($compare)) {
-                                                        foreach ($compare as $value) {
+                                                    if (!empty($results) || count($results)) {
+                                                        foreach ($results as $value) {
                                                             echo '<input type="checkbox" 
                                                             name="vaccine[]"
                                                             id='.$value['id'].'
@@ -136,14 +145,16 @@
                                                         }
                                                     }
                                                 ?>
+                                                <input type="hidden" name="childID" value="<?=$getID?>">
                                                 
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
-                                        <button type="submit" name="add_cargiver" class="btn btn-raised btn-block g-bg-cyan">Submit</button>
+                                        <button type="submit" name="Update_vaccine_record" class="btn btn-raised btn-block g-bg-cyan">Update</button>
                                     </div>
                                 </div>
+                            </form>
 
                         </div>
                     </div>

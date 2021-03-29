@@ -824,6 +824,7 @@ class user extends dbh
 		return $result = array_diff($arrayName1, $array2);
 	}
 
+
 /* ===================================================================*/
 }
 // end of class
