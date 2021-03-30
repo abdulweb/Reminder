@@ -72,6 +72,8 @@
                                                <td><?=$result['dob']?></td>
                                                <td><?=$result['created_at']?></td>
                                                <td>
+                                                   <a href="childVaccinationHistory.php?id=<?php echo htmlentities($result['id']);?>" title="view"><i class="material-icons">visibility</i></a>
+
                                                    <a style="color: seagreen; cursor: pointer;" title="Edit" data-toggle="modal"data-target="#UpdateChildModal" onclick="preload_edit_child_modal('<?=$result['first_name']?>','<?=$result['last_name']?>','<?=$result['other_name']?>','<?=$result['dob']?>','<?=$result['id']?>')">
                                                     <i class="material-icons">edit</i>
                                                     </a>
