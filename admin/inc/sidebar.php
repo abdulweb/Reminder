@@ -28,7 +28,7 @@
                 </li>
 
                 <li>
-                    <a href="vaccine.php"><i class="zmdi zmdi-home"></i><span>Vaccine</span></a>
+                    <a href="vaccine.php"><i class="zmdi zmdi-calendar-note"></i><span>Vaccine</span></a>
                 </li>
 
                 <li>
