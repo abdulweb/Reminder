@@ -78,6 +78,7 @@
                                         <tr>
                                             <th>Sn</th>
                                             <th>Vaccination Name</th>
+                                            <th>Status</th>
                                             <th>Date Received</th>
                                             <th></th>
                                         </tr>
@@ -92,7 +93,12 @@
                                             <td><?=++$key?></td>
                                             <td>
                                                 <?=$object->getVaccineNameById($respond['vaccine_id'])?>
+                                                
                                                 </td>
+                                            <td>
+                                                <strong><i class="zmdi zmdi-check" style="color: green"></i></strong>
+                                                
+                                            </td>
                                             <td><?=$respond['created_at']?></td>
                                             <td>
                                                 <div class="demo-single-button-dropdowns">

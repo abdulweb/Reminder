@@ -498,7 +498,7 @@ class user extends dbh
 			}
 		}
 	}
-	function insertCaregiverAndChild($phone,$firstName,$other_name,$child_firstName,$child_middleName,$dob,$vaccine)
+	function insertCaregiverAndChild($phone,$firstName,$other_name,$child_firstName,$child_middleName,$dob,$vaccine,$hf_name)
 	{
 		if (!empty($phone) || !empty($firstName)|| !empty($dob) || !empty($child_firstName)) 
 		{
@@ -520,7 +520,7 @@ class user extends dbh
 							$result = $this->connect()->query($stmty);
 							$data =   $result->fetch_assoc();
 							$caregiver_id =      $data['id'];
-							$insert = "INSERT INTO children(first_name,last_name,middle_name,dob,caregiver_id,created_at) Values('$child_firstName','$firstName','$child_middleName','$main','$caregiver_id','$date')";
+							$insert = "INSERT INTO children(first_name,last_name,middle_name,dob,caregiver_id,health_facility_id,created_at) Values('$child_firstName','$firstName','$child_middleName','$main','$caregiver_id','$hf_name','$date')";
 							$occ = 	$this->connect()->query($insert);
 							if ($occ) 
 							{
@@ -528,7 +528,8 @@ class user extends dbh
 								$select = $this->connect()->query("SELECT * FROM children ORDER BY id DESC LIMIT 1")->fetch_assoc();
 								$gotID = $select['id'];
 									if (empty($vaccine) or count($vaccine) < 1) {
-										echo "not vaccine added";
+										
+										echo '<div class ="alert bg-teal alert-dismissible"> <strong> New Caregiver and child  Added Successfully but no vaccine record added</strong> </div>';
 									}
 									else
 									{
@@ -562,7 +563,7 @@ class user extends dbh
 		}
 	}
 
-	function insertOneChild($firstName,$child_firstName,$child_middleName,$dob,$vaccine,$caregiverID,$phone){
+	function insertOneChild($firstName,$child_firstName,$child_middleName,$dob,$vaccine,$caregiverID,$phone,$hf_name){
 		if (!empty($caregiverID) || !empty($firstName)|| !empty($dob) || !empty($child_firstName)) 
 		{
 			if (empty($this->checkChild($child_firstName,$firstName,$child_middleName,$phone,$dob))) {
@@ -573,7 +574,7 @@ class user extends dbh
 						
 						
 							$caregiver_id = $caregiverID;
-							$insert = "INSERT INTO children(first_name,last_name,middle_name,dob,caregiver_id,created_at) Values('$child_firstName','$firstName','$child_middleName','$main','$caregiver_id','$date')";
+							$insert = "INSERT INTO children(first_name,last_name,middle_name,dob,caregiver_id,health_facility_id,created_at) Values('$child_firstName','$firstName','$child_middleName','$main','$caregiver_id','$hf_name','$date')";
 							$occ = 	$this->connect()->query($insert);
 							if ($occ) 
 							{
@@ -822,6 +823,28 @@ class user extends dbh
 	public function vaccineCheck($arrayName1, $array2)
 	{
 		return $result = array_diff($arrayName1, $array2);
+	}
+
+	// Delete Child
+	public function deleteChild($id)
+	{
+		$stmt = "DELETE FROM children where id = '$id'";
+		$result = $this->connect()->query($stmt);
+		if ($result) {
+			$stmtx = "DELETE FROM child_vaccine where child_id = '$id'";
+			$resultx = $this->connect()->query($stmtx);
+			if ($resultx) {
+
+				echo "success";
+			}
+			else{
+				echo '<script>alert("Please Try Agin. Error Occured")</script>';
+			}
+		}
+		else{
+			echo '<script>alert("Please Try Agin. Error Occured")</script>';
+		}
+		
 	}
 
 

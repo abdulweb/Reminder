@@ -28,8 +28,8 @@
     }
 
     function preload_edit_child_modal(first_name,last_name,middle_name,dob,id) {
-        $('#child_first_name').attr('value', first_name);
-        $('#child_first_name').text(first_name);
+        $('#child_firstName').attr('value', first_name);
+        $('#child_firstName').text(first_name);
         $('#child_last_name').attr('value', last_name);
         $('#child_last_name').text(last_name);
         $('#child_middle_name').attr('value', middle_name);

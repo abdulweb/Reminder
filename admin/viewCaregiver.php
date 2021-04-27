@@ -37,11 +37,12 @@
                     $child_middleName = $_POST['child_middleName'];
                     $dob = $_POST['dob'];
                     $vaccine = $_POST['vaccine'];
+                    $hf_name = $_POST['hf_name'];
                     // echo $caregiver_lastName.$caregiver_firstName.$caregiver_phoneNo.$dob.$child_firstName;
                     // lets twick something here
                         // print_r($_POST['vaccine']);
                     // 
-                   $object->insertCaregiverAndChild($caregiver_phoneNo,$caregiver_lastName,$caregiver_firstName,$child_firstName,$child_middleName,$dob,$vaccine);
+                   $object->insertCaregiverAndChild($caregiver_phoneNo,$caregiver_lastName,$caregiver_firstName,$child_firstName,$child_middleName,$dob,$vaccine,$hf_name);
                 }
 
                 if (isset($_POST['add_new_child'])) {
@@ -50,9 +51,10 @@
                     $child_firstName =  $_POST['child_first_name'];
                     $child_middleName = $_POST['child_middleName'];
                     $dob = $_POST['dob'];
+                    $hf_name = $_POST['hf_name'];
                     $vaccine = $_POST['vaccine'];
                     $caregiverID = $_POST['caregiverID'];
-                    $object->insertOneChild($caregiver_firstName,$child_firstName,$child_middleName,$dob,$vaccine,$caregiverID,$caregiver_phoneNo);
+                    $object->insertOneChild($caregiver_firstName,$child_firstName,$child_middleName,$dob,$vaccine,$caregiverID,$caregiver_phoneNo,$hf_name);
                 }
 
             ?>

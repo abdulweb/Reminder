@@ -402,6 +402,19 @@ Add health worker Modal -->
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-line">
+                                        <div class="form-group drop-custum">
+                                            <select class="form-control show-tick" required="required" name="hf_name">
+                                                <option value="">-- Select Hospital Name --</option>
+                                                <?php $results =$object->getAllHospital(); foreach ($results as $value) {
+                                                    ?>
+                                                    <option value="<?=$value['id']?>"><?=$value['name']?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                            </div>
                             <!--  -->
                             <strong class="text-dark">Vaccine Information: <small class="text-success">Kindly check/tick vaccine given to the above (new) child</small></strong>  
                             <div class="col-lg-12 col-md-12 col-sm-12">
@@ -502,7 +515,7 @@ Add health worker Modal -->
                             <div class="col-lg-6 col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input type="text" id="child_first_name" name="child_first_name" class="form-control" placeholder="First Name" required="required">
+                                        <input type="text" id="child_firstName" name="child_first_name" class="form-control" placeholder="First Name" required="required">
                                     </div>
                                 </div>
                             </div>

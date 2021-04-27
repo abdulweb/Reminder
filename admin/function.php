@@ -7,4 +7,10 @@
 		$object = $object->deleteHealthWorker($id);
 	}
 
+	// Delete child record from the database
+	if (isset($_POST['deleteChild'])) {
+		$id = $_POST['id'];
+		$object = $object->deleteChild($id);
+	}
+
 ?>

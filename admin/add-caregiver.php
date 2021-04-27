@@ -26,11 +26,12 @@
                     $child_middleName = $_POST['child_middleName'];
                     $dob = $_POST['dob'];
                     $vaccine = $_POST['vaccine'];
+                    $hf_name = $_POST['hf_name'];
                     // echo $caregiver_lastName.$caregiver_firstName.$caregiver_phoneNo.$dob.$child_firstName;
                     // lets twick something here
                         // print_r($_POST['vaccine']);
                     // 
-                   $object->insertCaregiverAndChild($caregiver_phoneNo,$caregiver_lastName,$caregiver_firstName,$child_firstName,$child_middleName,$dob,$vaccine);
+                   $object->insertCaregiverAndChild($caregiver_phoneNo,$caregiver_lastName,$caregiver_firstName,$child_firstName,$child_middleName,$dob,$vaccine,$hf_name);
                 }
 
             ?>
@@ -113,6 +114,24 @@
                                         <input type="text" id="child_lastName" class="form-control" placeholder="Last Name." disabled="disabled">
                                     </div>
                                 </div>                               
+                            </div>
+                            <!-- health facilty name -->
+                            <div class="col-lg-12 col-md-12 col-sm-12">                               
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        
+                                        <div class="form-group drop-custum">
+                                            <select class="form-control show-tick" required="required" name="hf_name">
+                                                <option value="">-- Select Hospital Name --</option>
+                                                <?php $results =$object->getAllHospital(); foreach ($results as $value) {
+                                                    ?>
+                                                    <option value="<?=$value['id']?>"><?=$value['name']?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div> 
+
                             </div>
                         </div>
                     </div>

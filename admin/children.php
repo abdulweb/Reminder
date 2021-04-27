@@ -72,13 +72,14 @@
                                                <td><?=$result['dob']?></td>
                                                <td><?=$result['created_at']?></td>
                                                <td>
-                                                   <a href="childVaccinationHistory.php?id=<?php echo htmlentities($result['id']);?>" title="view"><i class="material-icons">visibility</i></a>
+                                                   <a href="childVaccinationHistory.php?id=<?php echo htmlentities($result['id']);?>" class="btn btn-round" title="view"><i class="material-icons">visibility</i></a>
 
-                                                   <a style="color: seagreen; cursor: pointer;" title="Edit" data-toggle="modal"data-target="#UpdateChildModal" onclick="preload_edit_child_modal('<?=$result['first_name']?>','<?=$result['last_name']?>','<?=$result['other_name']?>','<?=$result['dob']?>','<?=$result['id']?>')">
+                                                   <button class="btn btn-round" style="color: seagreen; cursor: pointer;" title="Edit" data-toggle="modal"data-target="#UpdateChildModal" onclick="preload_edit_child_modal('<?=$result['first_name']?>','<?=$result['last_name']?>','<?=$result['middle_name']?>','<?=$result['dob']?>','<?=$result['id']?>')">
                                                     <i class="material-icons">edit</i>
-                                                    </a>
+                                                    </button>
 
-                                                   <a href="" title="Delete" onclick="return confirm('Ready to Delete?')" style="margin-left: 10px; color: rgb(253,58,100);"><i class="material-icons">cancel</i></a>
+                                                   <button class="btn btn-round cancel-button" title="Delete" id="<?=$result['id']?>" style="margin-left: 10px; color: rgb(253,58,100); cursor: pointer;"><i class="material-icons" >cancel</i></button>
+
                                                </td>
                                             </tr>
                                     <?php
@@ -95,6 +96,65 @@
 </section>
 
 
+
 <?php include ('inc/script.php'); ?>
 <?php include ('inc/modal.php'); ?>
 <?php include ('inc/footer.php'); ?>
+<script>
+    $(document).ready(function(){
+
+    $('.cancel-button').on('click',function(){        
+        swal({
+            title: "Are you sure?",
+            text: "To Delete This Record!",
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    text: "Cancel",
+                    value: null,
+                    visible: true,
+                    className: "",
+                    closeModal: false,
+                },
+                confirm: {
+                    text: "Delete",
+                    value: true,
+                    visible: true,
+                    className: "",
+                    closeModal: false
+                }
+            }
+        })
+        .then((isConfirm) => {
+            if (isConfirm) {
+                var id=this.id;
+                $.ajax({
+                  type:'post',
+                  url:'function.php',
+                  data:{
+                   deleteChild:'deleteChild',
+                   id:id,
+                  },
+                  success: function(inputValue){
+                    if (inputValue=="success") 
+                    {
+                        swal("Deleted!", "Your Record has been deleted.", "success");
+                    setTimeout(function(){// wait for 5 secs(2)
+                       location.reload(); // then reload the page.(3)
+                  }, 1000); 
+                    }
+                    else{swal("Error", "Your Record is safe Please try again", "error");}
+                    
+                    }
+                });
+                
+            } 
+            // else {
+            //     swal("Cancelled", "Your Record is safe", "error");
+            // }
+        });
+
+    });   
+
+});
+</script>
